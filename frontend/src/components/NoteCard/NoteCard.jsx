@@ -1,9 +1,14 @@
 import React from "react";
+import Paper from '@material-ui/core/Paper';
 
-export function NoteCard ({note}) {
+
+export default function NoteCard ({note}) {
+
     return (
         <div>
-            {note.content}
+            <Paper elevation={3}>
+                {note.content}
+            </Paper>
         </div>
     )
 }
