@@ -9,11 +9,11 @@ import NotesDashboard from "./pages/NotesDashboard";
 function App() {
     return (
         <BrowserRouter>
-            <Route>
-                <Switch path="/">
+            <Switch>
+                <Route path="/">
                     <NotesDashboard/>
-                </Switch>
-            </Route>
+                </Route>
+            </Switch>
         </BrowserRouter>
     )
 
