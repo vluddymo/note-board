@@ -1,21 +1,22 @@
 import './App.css';
-import {useEffect, useState} from "react";
-import {fetchAllNotes} from "./utils/notes-utils";
-import {NoteCard} from "./components/NoteCard/NoteCard";
+import {
+    Switch,
+    Route,
+    BrowserRouter
+} from "react-router-dom";
+import NotesDashboard from "./pages/NotesDashboard";
 
 function App() {
+    return (
+        <BrowserRouter>
+            <Route>
+                <Switch path="/">
+                    <NotesDashboard/>
+                </Switch>
+            </Route>
+        </BrowserRouter>
+    )
 
-  const [notes, setNotes] = useState([]);
-
-  useEffect(() => {
-  fetchAllNotes().then(data => setNotes(data))
-  }, [] );
-
-  return (
-    <div>
-      {notes.map((note) => <NoteCard key={note.id} note={note}/>)}
-    </div>
-  );
 }
 
 export default App;
