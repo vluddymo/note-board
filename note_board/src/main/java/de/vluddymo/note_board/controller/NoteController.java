@@ -1,13 +1,11 @@
 package de.vluddymo.note_board.controller;
 
 import de.vluddymo.note_board.model.Note;
+import de.vluddymo.note_board.model.dtos.NoteDto;
 import de.vluddymo.note_board.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("api/notes")
@@ -23,5 +21,11 @@ public class NoteController {
     @GetMapping
     public Iterable<Note> getNotes (){
        return noteService.getAllNotes();
+    }
+
+    @PutMapping
+    public Note addNote(@RequestBody NoteDto noteDto){
+        return noteService.addNote(noteDto);
+
     }
 }

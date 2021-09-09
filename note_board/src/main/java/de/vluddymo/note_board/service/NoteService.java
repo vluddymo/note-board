@@ -2,6 +2,7 @@ package de.vluddymo.note_board.service;
 
 import de.vluddymo.note_board.database.NoteMongoDB;
 import de.vluddymo.note_board.model.Note;
+import de.vluddymo.note_board.model.dtos.NoteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +21,11 @@ public class NoteService {
     }
 
 
+    public Note addNote(NoteDto noteDto) {
+        Note noteToAdd = new Note();
+        noteToAdd.setId(noteDto.getId());
+        noteToAdd.setContent(noteDto.getContent());
+        noteDb.save(noteToAdd);
+        return noteToAdd;
+    }
 }
