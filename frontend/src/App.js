@@ -1,20 +1,19 @@
 import './App.css';
-import {
-    Switch,
-    Route,
-    BrowserRouter
-} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NotesDashboard from "./pages/NotesDashboard";
+import NoteContextProvider from "./context/notes/noteContextProvider";
 
 function App() {
     return (
-        <BrowserRouter>
-            <Switch>
-                <Route path="/">
-                    <NotesDashboard/>
-                </Route>
-            </Switch>
-        </BrowserRouter>
+        <NoteContextProvider>
+            <BrowserRouter>
+                <Switch>
+                    <Route path="/">
+                        <NotesDashboard/>
+                    </Route>
+                </Switch>
+            </BrowserRouter>
+        </NoteContextProvider>
     )
 
 }
