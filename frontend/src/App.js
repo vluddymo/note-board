@@ -8,8 +8,9 @@ function App() {
         <NoteContextProvider>
             <BrowserRouter>
                 <Switch>
-                    <Route path="/">
-                        <NotesDashboard/>
+                    <Route
+                        path="/"
+                        component={NotesDashboard}>
                     </Route>
                 </Switch>
             </BrowserRouter>
