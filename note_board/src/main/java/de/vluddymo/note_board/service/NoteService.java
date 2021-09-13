@@ -38,10 +38,6 @@ public class NoteService {
     }
 
     public void deleteANote(String id){
-        Optional<Note> noteToDelete = noteDb.findById(id);
-        if (noteToDelete.isPresent()) {
-            noteDb.deleteById(id);
-        }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "I'm sorry, this note couldn't be deleted");
+        noteDb.deleteById(id);
     }
 }

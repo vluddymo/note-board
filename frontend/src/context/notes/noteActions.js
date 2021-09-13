@@ -39,6 +39,7 @@ export async function deleteNote(dispatch, noteId){
     try {
         await deleteANote(noteId);
         dispatch({type: DELETE_NOTE_SUCCESS, payload: noteId});
+        console.log("delete success")
     } catch (error) {
         dispatch({type: DELETE_NOTE_FAILED});
     }
