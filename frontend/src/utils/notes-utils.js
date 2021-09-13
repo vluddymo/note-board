@@ -21,3 +21,12 @@ export async function addANote(noteData) {
         }
         return await response.json();
 }
+
+export async function deleteANote(id){
+    const response = await fetch("api/notes/"+id, {
+        method: "DELETE"
+    });
+    if (response.status !== 200){
+        throw new Error('Sorry, deletion of note with id: '+id+' failed');
+    }
+}
