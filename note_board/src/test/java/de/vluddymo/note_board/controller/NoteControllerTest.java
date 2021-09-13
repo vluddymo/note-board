@@ -86,4 +86,26 @@ class NoteControllerTest {
 
     }
 
+    @Test
+    public void DeleteNoteShouldDeleteANoteFromDatabase(){
+
+        //GIVEN
+        noteDb.save(new Note("1", "note one"));
+        noteDb.save(new Note("2", "note two"));
+        noteDb.save(new Note("3", "note three"));
+
+        String idOfNoteToDelete = "2";
+
+        //WHEN
+        String url = "http://localhost:"+port+"/api/notes/"+idOfNoteToDelete;
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity entity = new HttpEntity(headers);
+
+        restTemplate.exchange(url,HttpMethod.DELETE,entity, Void.class);
+
+        //THEN
+
+        assertTrue(noteDb.findById(idOfNoteToDelete).isEmpty());
+    }
+
 }

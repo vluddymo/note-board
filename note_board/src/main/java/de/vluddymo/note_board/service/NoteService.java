@@ -5,7 +5,11 @@ import de.vluddymo.note_board.model.Note;
 import de.vluddymo.note_board.model.dtos.NoteDto;
 import de.vluddymo.note_board.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.Optional;
 
 @Service
 public class NoteService {
@@ -31,5 +35,9 @@ public class NoteService {
         noteToAdd.setContent(noteDto.getContent());
         noteDb.save(noteToAdd);
         return noteToAdd;
+    }
+
+    public void deleteANote(String id){
+        noteDb.deleteById(id);
     }
 }

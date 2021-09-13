@@ -21,3 +21,9 @@ export async function addANote(noteData) {
         }
         return await response.json();
 }
+
+export function deleteANote(id){
+    return fetch(`api/notes/${id}`, {
+        method: "DELETE"
+    });
+}

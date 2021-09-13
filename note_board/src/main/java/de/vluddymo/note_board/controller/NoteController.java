@@ -28,4 +28,9 @@ public class NoteController {
         return noteService.addNote(noteDto);
     }
 
+    @DeleteMapping("{id}")
+    public void deleteNote(@PathVariable String id){
+        noteService.deleteANote(id);
+    }
+
 }
