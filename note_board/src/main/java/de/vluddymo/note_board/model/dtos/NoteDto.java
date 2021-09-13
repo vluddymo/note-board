@@ -9,6 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoteDto {
 
-    private String id;
     private String content;
 }

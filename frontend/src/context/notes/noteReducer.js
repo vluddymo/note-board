@@ -1,4 +1,11 @@
-import {FETCH_NOTES, FETCH_NOTES_FAILED, FETCH_NOTES_SUCCESS} from "./noteActions";
+import {
+    ADD_NOTE,
+    ADD_NOTE_FAILED,
+    ADD_NOTE_SUCCESS,
+    FETCH_NOTES,
+    FETCH_NOTES_FAILED,
+    FETCH_NOTES_SUCCESS
+} from "./noteActions";
 
 export default function noteReducer(state, action) {
     switch (action.type) {
@@ -8,6 +15,16 @@ export default function noteReducer(state, action) {
             return { ...state, fetchStatus: 'SUCCESS', notes: action.payload };
         case FETCH_NOTES_FAILED:
             return { ...state, fetchStatus: 'FAILED' };
+        case ADD_NOTE:
+            return { ...state, addStatus: 'PENDING'};
+        case ADD_NOTE_SUCCESS:
+            return {
+                ...state,
+                addStatus: 'SUCCESS',
+                notes: [ ...state.notes, action.payload]
+            }
+        case ADD_NOTE_FAILED:
+            return { ...state, addStatus: 'FAILED'}
         default:
             return state;
     }

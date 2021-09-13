@@ -26,6 +26,6 @@ public class NoteController {
     @PutMapping
     public Note addNote(@RequestBody NoteDto noteDto){
         return noteService.addNote(noteDto);
-
     }
+
 }
