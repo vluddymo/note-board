@@ -7,7 +7,8 @@ export default function NoteContextProvider({children}) {
 
     const [state, dispatch] = useReducer(noteReducer, {
         notes: [],
-        fetchStatus: undefined
+        fetchStatus: undefined,
+        addStatus: undefined,
     })
 
     return (
@@ -18,6 +19,4 @@ export default function NoteContextProvider({children}) {
             </NoteDispatchContext.Provider>
         </NoteStateContext.Provider>
     )
-
-
 }
