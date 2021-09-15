@@ -2,6 +2,7 @@ package de.vluddymo.note_board.controller;
 
 import de.vluddymo.note_board.database.NoteMongoDB;
 import de.vluddymo.note_board.model.Note;
+import de.vluddymo.note_board.model.dtos.EditNoteDto;
 import de.vluddymo.note_board.model.dtos.NoteDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -106,6 +107,39 @@ class NoteControllerTest {
         //THEN
 
         assertTrue(noteDb.findById(idOfNoteToDelete).isEmpty());
+    }
+
+    @Test
+    public void EditNoteShouldChangeANoteInDatabase(){
+
+        //GIVEN
+        noteDb.save(new Note("1", "note one"));
+        noteDb.save(new Note("2", "note two"));
+        noteDb.save(new Note("3", "note three"));
+
+        String idOfNoteToEdit = "2";
+        String updatedContent = "note has changed successfully";
+
+        //WHEN
+        String url = "http://localhost:"+port+"/api/notes/"+idOfNoteToEdit;
+        HttpHeaders headers = new HttpHeaders();
+        EditNoteDto noteDto = new EditNoteDto(idOfNoteToEdit,updatedContent);
+        HttpEntity<EditNoteDto> requestEntity = new HttpEntity<>(noteDto, headers);
+
+        ResponseEntity<Note> putResponse = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Note.class);
+
+        //THEN
+
+        long amountOfNotes = noteDb.count();
+
+        assertNotNull(putResponse.getBody());
+        assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
+        assertEquals("note has changed successfully", putResponse.getBody().getContent() );
+
+
+        assertEquals(3, amountOfNotes);
+        assertTrue(noteDb.findById(idOfNoteToEdit).isPresent());
+        assertEquals(noteDb.findById(idOfNoteToEdit).get().getContent(),"note has changed successfully");
     }
 
 }
