@@ -2,12 +2,11 @@ package de.vluddymo.note_board.service;
 
 import de.vluddymo.note_board.database.NoteMongoDB;
 import de.vluddymo.note_board.model.Note;
+import de.vluddymo.note_board.model.dtos.EditNoteDto;
 import de.vluddymo.note_board.model.dtos.NoteDto;
 import de.vluddymo.note_board.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
@@ -39,5 +38,14 @@ public class NoteService {
 
     public void deleteANote(String id){
         noteDb.deleteById(id);
+    }
+
+    public Optional<Note> editANote(EditNoteDto noteDto) {
+       if (noteDb.findById(noteDto.getId()).isPresent()) {
+           Note updatedNote = new Note(noteDto.getId(), noteDto.getUpdatedContent());
+           noteDb.save(updatedNote);
+           return noteDb.findById(updatedNote.getId());
+       }
+        return Optional.empty();
     }
 }

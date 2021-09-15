@@ -1,10 +1,13 @@
 package de.vluddymo.note_board.controller;
 
 import de.vluddymo.note_board.model.Note;
+import de.vluddymo.note_board.model.dtos.EditNoteDto;
 import de.vluddymo.note_board.model.dtos.NoteDto;
 import de.vluddymo.note_board.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 
 @RestController
@@ -31,6 +34,11 @@ public class NoteController {
     @DeleteMapping("{id}")
     public void deleteNote(@PathVariable String id){
         noteService.deleteANote(id);
+    }
+
+    @PutMapping("{id}")
+    public Optional<Note> editNote(@RequestBody EditNoteDto noteDto){
+        return noteService.editANote(noteDto);
     }
 
 }
