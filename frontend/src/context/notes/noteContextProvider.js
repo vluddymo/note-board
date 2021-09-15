@@ -9,6 +9,7 @@ export default function NoteContextProvider({children}) {
         notes: [],
         fetchStatus: undefined,
         addStatus: undefined,
+        editStatus: undefined,
     })
 
     return (

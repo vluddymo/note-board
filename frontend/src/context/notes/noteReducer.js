@@ -1,7 +1,11 @@
 import {
     ADD_NOTE,
     ADD_NOTE_FAILED,
-    ADD_NOTE_SUCCESS, DELETE_NOTE_SUCCESS,
+    ADD_NOTE_SUCCESS,
+    DELETE_NOTE_SUCCESS,
+    EDIT_NOTE,
+    EDIT_NOTE_FAILED,
+    EDIT_NOTE_SUCCESS,
     FETCH_NOTES,
     FETCH_NOTES_FAILED,
     FETCH_NOTES_SUCCESS
@@ -32,6 +36,16 @@ export default function noteReducer(state, action) {
                     return note.id !== action.payload;
                 })
             }
+        case EDIT_NOTE:
+            return { ...state, editStatus: 'PENDING'};
+        case EDIT_NOTE_SUCCESS:
+            return {
+                ...state,
+                editStatus: 'SUCCESS',
+                notes: [ ...state.notes]
+            }
+        case EDIT_NOTE_FAILED:
+            return { ...state, editStatus: 'FAILED'}
         default:
             return state;
     }

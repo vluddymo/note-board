@@ -4,6 +4,8 @@ import {NoteDispatchContext, NoteStateContext} from "../context/notes/noteContex
 import {fetchNotes} from "../context/notes/noteActions";
 import DashboardHeader from "../components/DashboardHeader/DashboardHeader";
 import DashboardFooter from "../components/DashboardFooter/DashboardFooter";
+import PageFrame from "../components/PageFrame/PageFrame";
+import {Container, Grid} from "@material-ui/core";
 
 export default function NotesDashboard() {
 
@@ -19,18 +21,22 @@ export default function NotesDashboard() {
 
 
     return (
-        <>
+        <Container >
             <DashboardHeader/>
-            <div>
+            <PageFrame>
+                <Grid container spacing={2}>
                 {notes.map((note) =>
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
                     <NoteCard
                         key={note.id}
                         note={note}
                     />
+                    </Grid>
                 )}
                 {fetchStatus === 'PENDING' && <div><p>loading...</p></div>}
-            </div>
+                </Grid>
+            </PageFrame>
             <DashboardFooter/>
-        </>
+        </Container>
     )
 }

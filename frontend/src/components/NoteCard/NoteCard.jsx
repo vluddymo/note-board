@@ -3,21 +3,18 @@ import Paper from '@material-ui/core/Paper';
 import Typography from "@material-ui/core/Typography";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import {makeStyles} from "@material-ui/core";
+import EditButton from "./EditButton/EditButton";
 
 const useStyles = makeStyles({
     noteCard: {
-        width: "90%",
-        '@media (min-width: 426px)': {
-            maxWidth: "md",
-        },
+        padding: "10px",
         margin: "auto",
-        marginBottom: "5px",
-        marginTop: "5px",
-        alignSelf: "center",
+        width: "80%",
+        height: "20vh",
+        backgroundColor: "#edff21",
         justifyContent: "space-between",
         display: "flex",
-        flexGrow: 1,
-        flexDirection: "row",
+        flexDirection: "column",
     },
     textBox: {
         padding: "2px",
@@ -26,6 +23,10 @@ const useStyles = makeStyles({
     },
     text: {
         alignSelf: "center",
+    },
+    buttonBox: {
+        display: "flex",
+        justifyContent: "space-between",
     }
 });
 
@@ -34,9 +35,12 @@ export default function NoteCard({note}) {
     const classes = useStyles();
 
     return (
-            <Paper elevation={3} className={classes.noteCard}>
-                    <div className={classes.textBox}><Typography className={classes.text}>{note.content}</Typography></div>
-                    <DeleteButton noteId={note.id}/>
-            </Paper>
+        <Paper elevation={3} className={classes.noteCard}>
+            <div className={classes.textBox}><Typography className={classes.text}>{note.content}</Typography></div>
+            <div className={classes.buttonBox}>
+                <EditButton note={note}/>
+                <DeleteButton note={note}/>
+            </div>
+        </Paper>
     )
 }
