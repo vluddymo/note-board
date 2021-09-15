@@ -1,7 +1,7 @@
 export async function fetchAllNotes() {
-    const response = await fetch("api/notes",{
+    const response = await fetch("api/notes", {
         method: 'GET',
-        });
+    });
     if (response.status !== 200) {
         throw new Error(response.statusText);
     }
@@ -9,21 +9,31 @@ export async function fetchAllNotes() {
 }
 
 export async function addANote(noteData) {
-    const response = await fetch("api/notes",{
+    const response = await fetch("api/notes", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({content: noteData}),
     });
-        if (response.status !== 200){
-            throw new Error('invalid response');
-        }
-        return await response.json();
+    if (response.status !== 200) {
+        throw new Error('invalid response');
+    }
+    return await response.json();
 }
 
-export function deleteANote(id){
+export function deleteANote(id) {
     return fetch(`api/notes/${id}`, {
         method: "DELETE"
+    });
+}
+
+export function editANote(noteData) {
+    return fetch(`api/notes/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({id: noteData.id, updatedContent: noteData.content}),
     });
 }
