@@ -140,4 +140,26 @@ class NoteControllerTest {
         assertEquals(noteDb.findById(idOfNoteToEdit).get().getContent(),"note has changed successfully");
     }
 
+    @Test
+    public void GetNoteByidShouldReturnRequestedNote(){
+
+        //GIVEN
+        noteDb.save(new Note("23", "test one"));
+        noteDb.save(new Note("12345", "you found me!"));
+        noteDb.save(new Note("324", "test two"));
+
+        String requestedId = "12345";
+        String url = "http://localhost:"+port+"/api/notes/"+requestedId;
+
+        //WHEN
+        ResponseEntity<Note> response = restTemplate.getForEntity(url, Note.class);
+
+        //THEN
+        Note note = response.getBody();
+
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+        assertNotNull(note);
+        assertEquals(note.getContent(),"you found me!" );
+    }
+
 }
