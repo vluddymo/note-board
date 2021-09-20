@@ -12,9 +12,9 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 export const DELETE_NOTE_SUCCESS = 'DELETE_NOTE_SUCCESS';
 export const DELETE_NOTE_FAILED = 'DELETE_NOTE_FAILED';
 
-export const EDIT_NOTE = 'ADD_NOTE';
-export const EDIT_NOTE_SUCCESS = 'ADD_NOTE_SUCCESS';
-export const EDIT_NOTE_FAILED = 'ADD_NOTE_FAILED';
+export const EDIT_NOTE = 'EDIT_NOTE';
+export const EDIT_NOTE_SUCCESS = 'EDIT_NOTE_SUCCESS';
+export const EDIT_NOTE_FAILED = 'EDIT_NOTE_FAILED';
 
 export async function fetchNotes(dispatch) {
     dispatch({type: FETCH_NOTES});
@@ -32,6 +32,7 @@ export async function addNote(dispatch, noteData) {
     try {
         const note = await addANote(noteData);
         dispatch({type: ADD_NOTE_SUCCESS, payload: note});
+        console.log("add success")
     } catch (error) {
         dispatch({type: ADD_NOTE_FAILED, payload: error})
     }
@@ -49,11 +50,13 @@ export async function deleteNote(dispatch, noteId) {
     }
 }
 
-export async function editNote(dispatch, noteData) {
+export async function editNote(dispatch, noteId, updatedContent) {
     dispatch({type: EDIT_NOTE});
     try {
-        await editANote(noteData);
-        dispatch({type: EDIT_NOTE_SUCCESS, payload: noteData});
+        const updatedNote = await editANote(noteId, updatedContent);
+        dispatch({type: EDIT_NOTE_SUCCESS, payload: updatedNote});
+        console.log("edit success");
+        console.log(updatedNote.id.toString(), updatedNote.content.toString())
     } catch (error) {
         dispatch({type: EDIT_NOTE_FAILED, payload: error})
     }

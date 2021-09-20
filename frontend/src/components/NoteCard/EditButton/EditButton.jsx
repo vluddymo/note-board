@@ -16,10 +16,9 @@ export default function EditButton({note}) {
             <IconButton aria-label="delete">
                 <EditIcon color="primary" onClick={handleClick}/>
             </IconButton>
-            <EditNoteDialog content={note.content}
-                            id={note.id}
+            <EditNoteDialog note={note}
                             open={showEditDialogue}
-                            close={() => {setShowEditDialogue(false)}}/>
+                            handleClose={() => {setShowEditDialogue(false)}}/>
         </>
     )
 }

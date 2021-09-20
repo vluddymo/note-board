@@ -134,8 +134,6 @@ class NoteControllerTest {
 
         assertNotNull(putResponse.getBody());
         assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
-        assertEquals("note has changed successfully", putResponse.getBody().getContent() );
-
 
         assertEquals(3, amountOfNotes);
         assertTrue(noteDb.findById(idOfNoteToEdit).isPresent());

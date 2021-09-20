@@ -28,12 +28,17 @@ export function deleteANote(id) {
     });
 }
 
-export function editANote(noteData) {
-    return fetch(`api/notes/`, {
-        method: 'PUT',
+export function editANote(id, updatedContent) {
+    return fetch(`api/notes/${id}/updateNote`, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({id: noteData.id, updatedContent: noteData.content}),
+        body: JSON.stringify({content: updatedContent}),
+    }).then((response) => {
+        if (response.status !== 200) {
+            throw new Error(response.statusText);
+        }
+        return response.json();
     });
 }

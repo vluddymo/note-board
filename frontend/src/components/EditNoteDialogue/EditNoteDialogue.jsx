@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {useHistory} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -12,6 +13,7 @@ import {editNote} from "../../context/notes/noteActions";
 
 export default function EditNoteDialog(props) {
 
+    const history = useHistory()
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [updatedContent, setUpdatedContent] = useState(props.content);
@@ -21,24 +23,23 @@ export default function EditNoteDialog(props) {
 
     useEffect(() => {
         if(editStatus === 'SUCCESS'){
+            setUpdatedContent("");
             props.handleClose();
+            history.push("/");
+
         }
         // eslint-disable-next-line
     },[editStatus, dispatch])
 
-    function buildUpdatedNote(){
-        return {
-            id: `${props.id}`,
-            content: `${updatedContent}`
-        }
-    }
+
 
     function handleChange(event){
         setUpdatedContent(event.target.value)
     }
 
     function handleSubmit(){
-            editNote(dispatch, buildUpdatedNote());
+            editNote(dispatch,props.note.id, updatedContent);
+            props.handleClose();
     }
 
 
@@ -47,7 +48,7 @@ export default function EditNoteDialog(props) {
             <Dialog
                 fullScreen={fullScreen}
                 open={props.open}
-                onClose={props.close}
+                onClose={props.handleClose}
                 aria-labelledby="responsive-dialog-title"
             >
                 <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
@@ -59,14 +60,14 @@ export default function EditNoteDialog(props) {
                             margin="normal"
                             value={updatedContent}
                             spellCheck={false}
-                            defaultValue={props.content}
+                            defaultValue={props.note.content}
                             onChange={handleChange}
                         >
                         </TextField>
                     </form>
                 </DialogContent>
                 <DialogActions>
-                    <Button autoFocus onClick={props.close} color="primary">
+                    <Button autoFocus onClick={props.handleClose} color="primary">
                         Cancel
                     </Button>
                     <Button onClick={handleSubmit} color="primary" autoFocus>

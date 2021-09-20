@@ -2,16 +2,19 @@ package de.vluddymo.note_board.service;
 
 import de.vluddymo.note_board.database.NoteMongoDB;
 import de.vluddymo.note_board.model.Note;
-import de.vluddymo.note_board.model.dtos.EditNoteDto;
 import de.vluddymo.note_board.model.dtos.NoteDto;
 import de.vluddymo.note_board.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
 @Service
 public class NoteService {
+
+
 
     private final NoteMongoDB noteDb;
     private final IdUtils idUtils;
@@ -26,6 +29,15 @@ public class NoteService {
         return noteDb.findAll();
     }
 
+    public Note getNoteById(String id) {
+        Optional<Note> optionalNote = noteDb.findById(id);
+        if (optionalNote.isPresent()) {
+            return optionalNote.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Note not found");
+        }
+    }
+
 
     public Note addNote(NoteDto noteDto) {
         Note noteToAdd = new Note();
@@ -36,16 +48,13 @@ public class NoteService {
         return noteToAdd;
     }
 
-    public void deleteANote(String id){
+    public void deleteANote(String id) {
         noteDb.deleteById(id);
     }
 
-    public Optional<Note> editANote(EditNoteDto noteDto) {
-       if (noteDb.findById(noteDto.getId()).isPresent()) {
-           Note updatedNote = new Note(noteDto.getId(), noteDto.getUpdatedContent());
-           noteDb.save(updatedNote);
-           return noteDb.findById(updatedNote.getId());
-       }
-        return Optional.empty();
+    public Note editANote(String id, String content) {
+        Note note = getNoteById(id);
+        note.setContent(content);
+        return noteDb.save(note);
     }
 }

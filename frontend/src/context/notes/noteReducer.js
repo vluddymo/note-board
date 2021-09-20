@@ -16,6 +16,7 @@ export default function noteReducer(state, action) {
         case FETCH_NOTES:
             return { ...state, fetchStatus: 'PENDING' };
         case FETCH_NOTES_SUCCESS:
+            console.log("fetch reducer active on success")
             return { ...state, fetchStatus: 'SUCCESS', notes: action.payload };
         case FETCH_NOTES_FAILED:
             return { ...state, fetchStatus: 'FAILED' };
@@ -39,11 +40,16 @@ export default function noteReducer(state, action) {
         case EDIT_NOTE:
             return { ...state, editStatus: 'PENDING'};
         case EDIT_NOTE_SUCCESS:
+            //const noteIndex = state.notes.findIndex(note => note.id === action.payload.id);
             return {
                 ...state,
                 editStatus: 'SUCCESS',
-                notes: [ ...state.notes]
+                notes: [...state.notes.filter((note) => {
+                return note.id !== action.payload.id}), action.payload]
             }
+                //notes: [{[noteIndex]: {$set: action.payload}}, ...state.notes]}
+                //notes : [{[noteIndex]: {$set: action.payload}}, ...state.notes.filter(({ id }) => id !== action.payload.id).map((note) => action.payload ? action.payload : note)]};
+                //notes: [ ...state.notes.filter(({ id }) => id !== action.payload.id).map((note) => action.payload ? action.payload : note)]
         case EDIT_NOTE_FAILED:
             return { ...state, editStatus: 'FAILED'}
         default:

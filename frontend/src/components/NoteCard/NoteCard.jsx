@@ -39,7 +39,7 @@ export default function NoteCard({note}) {
             <div className={classes.textBox}><Typography className={classes.text}>{note.content}</Typography></div>
             <div className={classes.buttonBox}>
                 <EditButton note={note}/>
-                <DeleteButton note={note}/>
+                <DeleteButton id={note.id}/>
             </div>
         </Paper>
     )
