@@ -8,6 +8,16 @@ export async function fetchAllNotes() {
     return await response.json();
 }
 
+export async  function fetchNoteById(id){
+    const response = await fetch("api/notes/"+id, {
+        method: 'GET',
+    });
+    if (response.status !== 200) {
+        throw new Error(response.statusText);
+    }
+    return await response.json();
+}
+
 export async function addANote(noteData) {
     const response = await fetch("api/notes", {
         method: 'PUT',
