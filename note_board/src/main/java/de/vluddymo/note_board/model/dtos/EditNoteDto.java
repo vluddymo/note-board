@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class EditNoteDto {
 
     private String id;
-    private String updatedContent;
+    private String content;
 }

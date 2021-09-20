@@ -121,12 +121,12 @@ class NoteControllerTest {
         String updatedContent = "note has changed successfully";
 
         //WHEN
-        String url = "http://localhost:"+port+"/api/notes/"+idOfNoteToEdit;
+        String url = "http://localhost:"+port+"/api/notes/2/updateNote";
         HttpHeaders headers = new HttpHeaders();
-        EditNoteDto noteDto = new EditNoteDto(idOfNoteToEdit,updatedContent);
-        HttpEntity<EditNoteDto> requestEntity = new HttpEntity<>(noteDto, headers);
+        NoteDto noteDto = new NoteDto(updatedContent);
+        HttpEntity<NoteDto> requestEntity = new HttpEntity<>(noteDto, headers);
 
-        ResponseEntity<Note> putResponse = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, Note.class);
+        ResponseEntity<Note> putResponse = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Note.class);
 
         //THEN
 
@@ -134,8 +134,6 @@ class NoteControllerTest {
 
         assertNotNull(putResponse.getBody());
         assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
-        assertEquals("note has changed successfully", putResponse.getBody().getContent() );
-
 
         assertEquals(3, amountOfNotes);
         assertTrue(noteDb.findById(idOfNoteToEdit).isPresent());

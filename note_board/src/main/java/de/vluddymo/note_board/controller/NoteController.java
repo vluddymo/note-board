@@ -36,9 +36,8 @@ public class NoteController {
         noteService.deleteANote(id);
     }
 
-    @PutMapping("{id}")
-    public Optional<Note> editNote(@RequestBody EditNoteDto noteDto){
-        return noteService.editANote(noteDto);
+    @PostMapping("{id}/updateNote")
+    public Note editNote(@PathVariable String id, @RequestBody NoteDto noteDto){
+        return noteService.editANote(id, noteDto.getContent());
     }
-
 }

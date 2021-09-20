@@ -4,14 +4,14 @@ import {NoteDispatchContext} from "../../../context/notes/noteContext";
 import {deleteNote} from "../../../context/notes/noteActions";
 import {useContext} from "react";
 
-export default function DeleteButton({noteId}){
+export default function DeleteButton({id}){
 
     const dispatch = useContext(NoteDispatchContext);
 
 
     function handleClick(event) {
         event.stopPropagation();
-        deleteNote(dispatch, noteId);
+        deleteNote(dispatch, id);
     }
 
     return (
