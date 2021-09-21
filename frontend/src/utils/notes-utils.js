@@ -8,13 +8,23 @@ export async function fetchAllNotes() {
     return await response.json();
 }
 
+export async  function fetchNoteById(id){
+    const response = await fetch("api/notes/"+id, {
+        method: 'GET',
+    });
+    if (response.status !== 200) {
+        throw new Error(response.statusText);
+    }
+    return await response.json();
+}
+
 export async function addANote(noteData) {
     const response = await fetch("api/notes", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({content: noteData}),
+        body: JSON.stringify({title: noteData.title, content: noteData.content}),
     });
     if (response.status !== 200) {
         throw new Error('invalid response');

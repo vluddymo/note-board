@@ -2,6 +2,7 @@ import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import NotesDashboard from "./pages/NotesDashboard";
 import NoteContextProvider from "./context/notes/noteContextProvider";
+import NoteDetails from "./pages/NoteDetails";
 
 function App() {
     return (
@@ -10,7 +11,13 @@ function App() {
                 <Switch>
                     <Route
                         path="/"
-                        component={NotesDashboard}>
+                        component={NotesDashboard}
+                    exact>
+                    </Route>
+                    <Route
+                        path="/:id"
+                        component={NoteDetails}
+                        exact>
                     </Route>
                 </Switch>
             </BrowserRouter>

@@ -9,5 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoteDto {
 
+    private String title;
     private String content;
+    private Boolean onSchedule;
 }
