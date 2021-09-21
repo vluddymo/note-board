@@ -31,14 +31,12 @@ export default function NoteDetailsCard({note}){
                     <MoreVertIcon />
                 </IconButton>
             }
-            title={note.content}
-            subheader="September 14, 2016"
+            title={note.title}
+            subheader={note.date}
         />
         <CardContent>
             <Typography variant="body2" color="text.secondary">
-                This impressive paella is a perfect party dish and a fun meal to cook
-                together with your guests. Add 1 cup of frozen peas along with the mussels,
-                if you like.
+                {note.content}
             </Typography>
         </CardContent>
         <CardActions disableSpacing>

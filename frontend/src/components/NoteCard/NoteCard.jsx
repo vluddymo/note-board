@@ -48,7 +48,7 @@ export default function NoteCard({note}) {
                                 setShowEditDialogue(false)
                             }}/>
             <Paper elevation={3} className={classes.noteCard} onClick={() => history.push(`/${note.id}`)}>
-                <div className={classes.textBox}><Typography className={classes.text}>{note.content}</Typography></div>
+                <div className={classes.textBox}><Typography className={classes.text}>{note.title}</Typography></div>
                 <div className={classes.buttonBox}>
                     <EditButton note={note} handleClick={() => setShowEditDialogue(true)}/>
                     <DetailsButton note={note}/>

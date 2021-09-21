@@ -7,23 +7,38 @@ import {NoteDispatchContext, NoteStateContext} from "../../context/notes/noteCon
 export default function AddNoteDialogue(props){
 
     const [content, setContent] = useState("");
+    const [title, setTitle] = useState("");
     const dispatch = useContext(NoteDispatchContext);
     const {addStatus} = useContext(NoteStateContext);
 
     useEffect(() => {
         if(addStatus === 'SUCCESS'){
             setContent("");
+            setTitle("");
             props.handleClose();
         }
         // eslint-disable-next-line
     },[addStatus])
 
-
-    function handleSubmit() {
-        addNote(dispatch, content);
+    function buildDataPackage(){
+        const noteData = {
+            title: `${title}`,
+            content: `${content}`
+        };
+        console.log(noteData.title.toString());
+        console.log(noteData.content.toString());
+        return noteData
     }
 
-    function handleChange(event){
+    function handleSubmit() {
+        addNote(dispatch,buildDataPackage());
+    }
+
+    function handleTitleChange(event){
+        setTitle(event.target.value);
+    }
+
+    function handleContentChange(event){
         setContent(event.target.value);
     }
 
@@ -40,11 +55,22 @@ export default function AddNoteDialogue(props){
                     <TextField
                         fullWidth={true}
                         multiline={true}
+                        value={title}
+                        label="type away"
+                        margin="normal"
+                        spellCheck={false}
+                        onChange={handleTitleChange}
+                    />
+                </form>
+                <form>
+                    <TextField
+                        fullWidth={true}
+                        multiline={true}
                         value={content}
                         label="type away"
                         margin="normal"
                         spellCheck={false}
-                        onChange={handleChange}
+                        onChange={handleContentChange}
                     />
                 </form>
                 {addStatus === 'PENDING' && <Typography>loading...</Typography>}
