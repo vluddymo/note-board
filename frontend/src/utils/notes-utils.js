@@ -24,7 +24,7 @@ export async function addANote(noteData) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({content: noteData}),
+        body: JSON.stringify({title: noteData.title, content: noteData.content}),
     });
     if (response.status !== 200) {
         throw new Error('invalid response');
