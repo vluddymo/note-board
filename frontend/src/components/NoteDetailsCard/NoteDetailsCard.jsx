@@ -1,5 +1,4 @@
-import {Card, CardActions, CardContent, CardHeader, IconButton} from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
+import {Card, CardHeader, IconButton} from "@material-ui/core";
 import ShareIcon from '@mui/icons-material/Share';
 import Avatar from '@mui/material/Avatar';
 import {green} from "@material-ui/core/colors";
@@ -10,33 +9,16 @@ import ToDoSwitchBox from "./TodoSwitchBox/ToDoSwitchBox";
 const useStyles = makeStyles({
     card: {
         backgroundColor: "#f0f3d2",
+        width: "95%",
+        height: "80vh",
+        flexGrow: "4",
+        alignSelf: "center",
     },
-    content: {
-        width: "85%",
-        margin: "auto",
-        border: "solid 2px",
-        borderRadius: "12px",
-        borderColor: "#4caf50",
-        marginBottom: "10px",
-        backgroundColor: "white",
-    },
-    detailsContent: {
-        width: "85%",
-        margin: "auto",
-        border: "solid 2px",
-        borderRadius: "12px",
-        borderColor: "#4caf50",
-        marginBottom: "10px",
-        backgroundColor: "white",
-        height: "30vh"
-    }
-
 });
 
 export default function NoteDetailsCard({note}){
 
     const classes = useStyles();
-
     return (
 
     <Card className={classes.card}>
@@ -54,17 +36,8 @@ export default function NoteDetailsCard({note}){
             title={note.title}
             subheader={note.date}
         />
-        <ToDoSwitchBox/>
-        <CardContent className={classes.content}>
-            <Typography variant="body2" color="text.secondary">
-                {note.content}
-            </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-            <AttachmentButtonBox/>
-        </CardActions>
-            <CardContent className={classes.detailsContent}>
-            </CardContent>
+        <ToDoSwitchBox note={note}/>
+        <AttachmentButtonBox note={note}/>
     </Card>
 )
 
