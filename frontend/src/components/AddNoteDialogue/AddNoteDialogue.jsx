@@ -49,14 +49,14 @@ export default function AddNoteDialogue(props){
             maxWidth={'sm'}
             fullWidth={true}
         >
-            <DialogTitle id="form-dialog-title">What's your note ?</DialogTitle>
+            <DialogTitle id="form-dialog-title">Deine neue Notiz</DialogTitle>
             <DialogContent>
                 <form>
                     <TextField
                         fullWidth={true}
                         multiline={true}
                         value={title}
-                        label="type away"
+                        label="Titel"
                         margin="normal"
                         spellCheck={false}
                         onChange={handleTitleChange}
@@ -64,10 +64,11 @@ export default function AddNoteDialogue(props){
                 </form>
                 <form>
                     <TextField
+
                         fullWidth={true}
                         multiline={true}
                         value={content}
-                        label="type away"
+                        label="Beschreibung"
                         margin="normal"
                         spellCheck={false}
                         onChange={handleContentChange}
