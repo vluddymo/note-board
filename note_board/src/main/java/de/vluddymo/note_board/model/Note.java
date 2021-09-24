@@ -1,5 +1,6 @@
 package de.vluddymo.note_board.model;
 
+import de.vluddymo.note_board.model.noteType.NoteType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,6 @@ public class Note {
     private String title;
     private String content;
     private String date;
-    private Boolean onSchedule;
-    private String scheduledTo;
+    private NoteType type;
 
 }

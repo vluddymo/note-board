@@ -6,8 +6,20 @@ import DashboardHeader from "../components/DashboardHeader/DashboardHeader";
 import DashboardFooter from "../components/DashboardFooter/DashboardFooter";
 import PageFrame from "../components/PageFrame/PageFrame";
 import {Container, Grid} from "@material-ui/core";
+import {makeStyles} from "@mui/styles";
+
+const useStyles = makeStyles((theme)=>({
+    container: {
+        flexGrow: 2,
+        width: "100%",
+        display: "flex",
+        overflow: "scroll",
+    },
+}));
 
 export default function NotesDashboard() {
+
+    const classes = useStyles();
 
     const {notes, fetchStatus} = useContext(NoteStateContext);
     const dispatch = useContext(NoteDispatchContext);
@@ -21,22 +33,24 @@ export default function NotesDashboard() {
 
 
     return (
-        <Container >
+        <PageFrame>
             <DashboardHeader/>
-            <PageFrame>
+            <Container className={classes.container}>
                 <Grid container spacing={2}>
-                {notes.map((note) =>
-                    <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <NoteCard
-                        key={note.id}
-                        note={note}
-                    />
-                    </Grid>
-                )}
-                {fetchStatus === 'PENDING' && <div><p>loading...</p></div>}
+                    {notes.map((note) =>
+                        <Grid item xs={12} sm={6} md={4} lg={3}>
+                            <NoteCard
+                                key={note.id}
+                                note={note}
+                            />
+                        </Grid>
+                    )}
+                    {fetchStatus === 'PENDING' && <div><p>loading...</p></div>}
                 </Grid>
-            </PageFrame>
+            </Container>
             <DashboardFooter/>
-        </Container>
+        </PageFrame>
+
+
     )
 }

@@ -1,4 +1,4 @@
-import {Box, CardContent, makeStyles} from "@material-ui/core";
+import {Box, CardContent, Container, makeStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import {useState} from "react";
@@ -10,22 +10,25 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         justifyContent: "center",
         flexDirection: "row",
+        marginBottom: theme.spacing(1),
     },
     button: {
-        margin: theme.spacing(1),
-        width: "20%",
-        backgroundColor: "#4caf50",
+        margin: theme.spacing(0.5),
+        marginBottom: theme.spacing(1),
+        width: "26%",
+        backgroundColor: "#edff21",
         borderRadius: 10,
         alignSelf: "center",
+        color: "black",
         fontWeight: "normal",
-        fontSize: "small"
+        fontSize: "x-small"
     },
     detailsContent: {
         width: "85%",
         margin: "auto",
         border: "solid 2px",
         borderRadius: "12px",
-        borderColor: "#4caf50",
+        borderColor: "#edff21",
         marginBottom: "10px",
         backgroundColor: "white",
         height: "30vh"
@@ -42,7 +45,7 @@ export default function AttachmentButtonBox({note}) {
     const noLinkString = "Du hast noch keine Links für diese Notiz";
 
     return (
-        <>
+        <Container>
             <Box className={classes.options}>
                 <Button className={classes.button} onClick={()=> setShowAttachment("Termine")}>Termine</Button>
                 <Button className={classes.button} onClick={()=> setShowAttachment("Gallerie")}>Gallerie</Button>
@@ -64,7 +67,7 @@ export default function AttachmentButtonBox({note}) {
                 </Typography>
                 }
             </CardContent>
-        </>
+        </Container>
     )
 
 }

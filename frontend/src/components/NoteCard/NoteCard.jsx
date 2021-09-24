@@ -1,23 +1,20 @@
 import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import Paper from '@material-ui/core/Paper';
-import Typography from "@material-ui/core/Typography";
 import DeleteButton from "./DeleteButton/DeleteButton";
 import {makeStyles} from "@material-ui/core";
-import EditButton from "./EditButton/EditButton";
-import DetailsButton from "./DetailsButton/DetailsButton";
 import EditNoteDialog from "../EditNoteDialogue/EditNoteDialogue";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     noteCard: {
         padding: "10px",
         margin: "auto",
         width: "80%",
         height: "20vh",
         backgroundColor: "#edff21",
-        justifyContent: "space-between",
         display: "flex",
         flexDirection: "column",
+        alignSelf: "center"
     },
     textBox: {
         padding: "2px",
@@ -25,14 +22,21 @@ const useStyles = makeStyles({
         alignContent: "center",
     },
     text: {
-        alignSelf: "center",
+        marginBottom: theme.spacing(1),
+        flexGrow: 2,
     },
     buttonBox: {
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
         flexDirection: "row",
+        justifySelf: "stretch",
+    },
+    date: {
+        color: "grey",
+        fontSize: "small",
+        marginBottom: theme.spacing(1)
     }
-});
+}));
 
 export default function NoteCard({note}) {
 
@@ -47,11 +51,12 @@ export default function NoteCard({note}) {
                             handleClose={() => {
                                 setShowEditDialogue(false)
                             }}/>
-            <Paper elevation={3} className={classes.noteCard} onClick={() => history.push(`/${note.id}`)}>
-                <div className={classes.textBox}><Typography className={classes.text}>{note.title}</Typography></div>
+            <Paper sx={{
+                backgroundColor: 'black',
+            }} elevation={3} className={classes.noteCard} onClick={() => history.push(`/${note.id}`)}>
+                <div className={classes.date}>{note.date}</div>
+                <div className={classes.text}>{note.title}</div>
                 <div className={classes.buttonBox}>
-                    <EditButton note={note} handleClick={() => setShowEditDialogue(true)}/>
-                    <DetailsButton note={note}/>
                     <DeleteButton id={note.id}/>
                 </div>
             </Paper>

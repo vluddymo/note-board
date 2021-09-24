@@ -1,15 +1,14 @@
 import {Container, makeStyles} from "@material-ui/core";
-import BoardSurface from "./BoardSurface/BoardSurface";
 
 const useStyles = makeStyles({
     container: {
-        background: "black",
         display: "flex",
-        height: "90vh",
+        height: "100vh",
         flexDirection: "column",
         width: "100%",
-        padding: 20,
         alignContent: "center",
+        padding: "0 0 0 0",
+        background: "transparent"
 
     },
 });
@@ -20,9 +19,7 @@ export default function PageFrame({children}){
 
     return (
         <Container className={classes.container}>
-            <BoardSurface>
             {children}
-            </BoardSurface>
         </Container>
     )
 }
