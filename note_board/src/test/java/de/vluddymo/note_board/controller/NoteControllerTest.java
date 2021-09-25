@@ -3,6 +3,7 @@ package de.vluddymo.note_board.controller;
 import de.vluddymo.note_board.database.NoteMongoDB;
 import de.vluddymo.note_board.model.Note;
 import de.vluddymo.note_board.model.dtos.NoteDto;
+import de.vluddymo.note_board.model.noteType.NoteType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ class NoteControllerTest {
         //GIVEN
         String url = "http://localhost:"+port+"/api/notes";
 
-        Note firstNote = new Note("23", "Bachelorarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","21. Septmeber 2021" ,false, "");
-        Note secondNote = new Note("123", "Masterarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","23. Septmeber 2021" ,false, "");
+        Note firstNote = new Note("23", "Bachelorarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","21. Septmeber 2021" , NoteType.PERSONAL);
+        Note secondNote = new Note("123", "Masterarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","23. Septmeber 2021" ,NoteType.BUSINESS);
         noteDb.save(firstNote);
         noteDb.save(secondNote);
 
@@ -61,8 +62,8 @@ class NoteControllerTest {
     public void AddNoteShouldAddNewNoteToDatabase(){
 
         //GIVEN
-        Note firstNote = new Note("23", "Bachelorarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","21. Septmeber 2021" ,false, "");
-        Note secondNote = new Note("123", "Masterarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","23. Septmeber 2021" ,false, "");
+        Note firstNote = new Note("23", "Bachelorarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","21. Septmeber 2021" ,NoteType.PERSONAL);
+        Note secondNote = new Note("123", "Masterarbeit", "Das Finale meines Studiums. Es gibt noch Einiges zu tun, aber anschließend beginnt ein neues Kapitel in meinem Leben","23. Septmeber 2021" ,NoteType.BUSINESS);
         noteDb.save(firstNote);
         noteDb.save(secondNote);
 
@@ -92,9 +93,9 @@ class NoteControllerTest {
     public void DeleteNoteShouldDeleteANoteFromDatabase(){
 
         //GIVEN
-        noteDb.save(new Note("1","note one", "note one content","10. Dezember 2020", false, ""));
-        noteDb.save(new Note("2","note two","note two content","15. Dezember 2020", false, ""));
-        noteDb.save(new Note("3","note three", "note three content", "18. September 2021", false, ""));
+        noteDb.save(new Note("1","note one", "note one content","10. Dezember 2020", NoteType.PERSONAL));
+        noteDb.save(new Note("2","note two","note two content","15. Dezember 2020", NoteType.BUSINESS));
+        noteDb.save(new Note("3","note three", "note three content", "18. September 2021", NoteType.FREETIME));
 
         String idOfNoteToDelete = "2";
 
@@ -114,9 +115,9 @@ class NoteControllerTest {
     public void EditNoteShouldChangeANoteInDatabase(){
 
         //GIVEN
-        noteDb.save(new Note("1","note one", "note one content","10. Dezember 2020", false, ""));
-        noteDb.save(new Note("2","note two","note two content","15. Dezember 2020", false, ""));
-        noteDb.save(new Note("3","note three", "note three content", "18. September 2021", false, ""));
+        noteDb.save(new Note("1","note one", "note one content","10. Dezember 2020", NoteType.PERSONAL));
+        noteDb.save(new Note("2","note two","note two content","15. Dezember 2020", NoteType.BUSINESS));
+        noteDb.save(new Note("3","note three", "note three content", "18. September 2021", NoteType.PERSONAL));
 
         String idOfNoteToEdit = "2";
         String updatedContent = "note has changed successfully";
@@ -146,9 +147,9 @@ class NoteControllerTest {
     public void GetNoteByIdShouldReturnRequestedNote(){
 
         //GIVEN
-        noteDb.save(new Note("1","note one", "note one content","10. Dezember 2020", false, ""));
-        noteDb.save(new Note("12345","you found me!","note two content","15. Dezember 2020", false, ""));
-        noteDb.save(new Note("3","note three", "note three content", "18. September 2021", false, ""));
+        noteDb.save(new Note("1","note one", "note one content","10. Dezember 2020", NoteType.PERSONAL));
+        noteDb.save(new Note("12345","you found me!","note two content","15. Dezember 2020", NoteType.BUSINESS));
+        noteDb.save(new Note("3","note three", "note three content", "18. September 2021", NoteType.FREETIME));
 
         String requestedId = "12345";
         String url = "http://localhost:"+port+"/api/notes/"+requestedId;

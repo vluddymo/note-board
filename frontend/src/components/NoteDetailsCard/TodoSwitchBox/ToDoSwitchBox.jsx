@@ -1,34 +1,38 @@
-import {Box, CardContent, makeStyles} from "@material-ui/core";
+import {Box, CardContent, Container, makeStyles} from "@material-ui/core";
 import {useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme)=>({
+    container: {
+        flexGrow: 2
+    },
     options: {
         alignSelf: "center",
         width: "100%",
         display: "flex",
         justifyContent: "center",
         flexDirection: "row",
-        marginBottom: "10px"
+        marginBottom: theme.spacing(1)
     },
     content: {
         width: "85%",
         margin: "auto",
         border: "solid 2px",
         borderRadius: "12px",
-        borderColor: "#4caf50",
-        marginBottom: "10px",
+        borderColor: "#edff21",
+        marginBottom: theme.spacing(1),
         backgroundColor: "white",
     },
     button: {
-        margin: theme.spacing(1),
-        width: "20%",
-        backgroundColor: "#4caf50",
+        margin: theme.spacing(0.5),
+        width: "30%",
+        backgroundColor: "#edff21",
         borderRadius: 10,
         alignSelf: "center",
+        color: "black",
         fontWeight: "normal",
-        fontSize: "small"
+        fontSize: "x-small"
     },
 }));
 
@@ -39,7 +43,7 @@ export default function ToDoSwitchBox({note}) {
     const noDataString = "Du hast noch keine Todos für diese Notiz";
 
     return (
-        <>
+        <Container className={classes.container}>
             <Box className={classes.options}>
                 <Button onClick={() => setShowContent("content")} className={classes.button}>Scribble</Button>
                 <Button onClick={() => setShowContent("todo")} className={classes.button}>ToDos</Button>
@@ -55,6 +59,6 @@ export default function ToDoSwitchBox({note}) {
                 </Typography>
                 }
             </CardContent>
-        </>
+        </Container>
     )
 }

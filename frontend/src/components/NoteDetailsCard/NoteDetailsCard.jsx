@@ -8,9 +8,7 @@ import ToDoSwitchBox from "./TodoSwitchBox/ToDoSwitchBox";
 
 const useStyles = makeStyles({
     card: {
-        backgroundColor: "#f0f3d2",
-        width: "95%",
-        height: "80vh",
+        width: "100%",
         flexGrow: "4",
         alignSelf: "center",
     },

@@ -2,7 +2,10 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Ty
 import {useContext, useEffect, useState} from "react";
 import {addNote} from "../../context/notes/noteActions";
 import {NoteDispatchContext, NoteStateContext} from "../../context/notes/noteContext";
-
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import FaceRetouchingNaturalIcon from '@mui/icons-material/FaceRetouchingNatural';
+import {ButtonGroup} from "@mui/material";
 
 export default function AddNoteDialogue(props){
 
@@ -51,6 +54,11 @@ export default function AddNoteDialogue(props){
         >
             <DialogTitle id="form-dialog-title">Deine neue Notiz</DialogTitle>
             <DialogContent>
+                <ButtonGroup>
+                    <Button size={"small"} variant={"contained"} startIcon={<WorkIcon fontSize={"small"}/>}/>
+                    <Button size={"small"} variant={"contained"} startIcon={<BeachAccessIcon fontSize={"small"}/>}/>
+                    <Button size={"small"} variant={"contained"} startIcon={<FaceRetouchingNaturalIcon fontSize={"small"}/>}/>
+                </ButtonGroup>
                 <form>
                     <TextField
                         fullWidth={true}
