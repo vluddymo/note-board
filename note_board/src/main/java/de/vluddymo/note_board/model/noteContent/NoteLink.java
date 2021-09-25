@@ -14,7 +14,7 @@ public class NoteLink {
 
     @Id
     public String linkId;
-    public String id;
+    public String noteId;
     public String linkDescription;
     public String linkUrl;
 

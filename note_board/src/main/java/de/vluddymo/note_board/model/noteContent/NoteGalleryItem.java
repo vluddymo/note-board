@@ -14,6 +14,6 @@ public class NoteGalleryItem {
 
     @Id
     public String galleryItemId;
-    public String id;
+    public String noteId;
     public String imgUrl;
 }

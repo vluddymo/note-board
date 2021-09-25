@@ -14,7 +14,7 @@ public class NoteToDo {
 
     @Id
     public String todoId;
-    public String id;
+    public String noteId;
     public String task;
     public Boolean isTaskDone;
 }

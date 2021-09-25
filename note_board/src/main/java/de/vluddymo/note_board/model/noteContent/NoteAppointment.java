@@ -14,7 +14,7 @@ public class NoteAppointment {
 
     @Id
     public String appointmentId;
-    public String id;
+    public String noteId;
     public String appointmentDescription;
     public String appointmentDate;
     public String appointmentTime;

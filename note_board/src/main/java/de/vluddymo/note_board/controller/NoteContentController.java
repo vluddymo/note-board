@@ -1,7 +1,9 @@
 package de.vluddymo.note_board.controller;
 
-import de.vluddymo.note_board.database.noteContent.NoteLinkMongoDB;
-import de.vluddymo.note_board.model.dtos.NoteContentDto;
+import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteAppointmentDto;
+import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteGalleryItemDto;
+import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteLinkDto;
+import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteTodoDto;
 import de.vluddymo.note_board.model.noteContent.NoteAppointment;
 import de.vluddymo.note_board.model.noteContent.NoteGalleryItem;
 import de.vluddymo.note_board.model.noteContent.NoteLink;
@@ -22,23 +24,23 @@ public class NoteContentController {
     }
 
     @PutMapping("{id}/appointment")
-    public NoteAppointment AddAppointment(@PathVariable String id, NoteContentDto noteContentDto){
-        return noteContentService.insertAppointment(noteContentDto);
+    public NoteAppointment AddAppointment(@PathVariable String id, @RequestBody NoteAppointmentDto noteAppointmentDto){
+        return noteContentService.insertAppointment(id, noteAppointmentDto);
     }
 
     @PutMapping("{id}/link")
-    public NoteLink AddLink(@PathVariable String id, NoteContentDto noteContentDto){
-        return noteContentService.insertLink(noteContentDto);
+    public NoteLink AddLink(@PathVariable String id, @RequestBody NoteLinkDto noteLinkDto){
+        return noteContentService.insertLink(id, noteLinkDto);
     }
 
     @PutMapping("{id}/todo")
-    public NoteToDo AddTodo(@PathVariable String id, NoteContentDto noteContentDto){
-        return noteContentService.insertTodo(noteContentDto);
+    public NoteToDo AddTodo(@PathVariable String id, @RequestBody NoteTodoDto noteTodoDto){
+        return noteContentService.insertTodo(id, noteTodoDto);
     }
 
     @PutMapping("{id}/galleryItem")
-    public NoteGalleryItem AddGalleryItem(@PathVariable String id, NoteContentDto noteContentDto){
-        return noteContentService.insertGalleryItem(noteContentDto);
+    public NoteGalleryItem AddGalleryItem(@PathVariable String id, @RequestBody NoteGalleryItemDto noteGalleryItemDto){
+        return noteContentService.insertGalleryItem(id, noteGalleryItemDto);
     }
 }
 
