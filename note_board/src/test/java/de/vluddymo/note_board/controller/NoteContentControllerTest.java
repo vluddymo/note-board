@@ -4,15 +4,14 @@ import de.vluddymo.note_board.database.noteContent.NoteAppointmentMongoDB;
 import de.vluddymo.note_board.database.noteContent.NoteGalleryItemMongoDB;
 import de.vluddymo.note_board.database.noteContent.NoteLinkMongoDB;
 import de.vluddymo.note_board.database.noteContent.NoteTodoMongoDB;
-import de.vluddymo.note_board.model.Note;
-import de.vluddymo.note_board.model.dtos.NoteDto;
 import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteAppointmentDto;
 import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteGalleryItemDto;
 import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteLinkDto;
+import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteTodoDto;
 import de.vluddymo.note_board.model.noteContent.NoteAppointment;
 import de.vluddymo.note_board.model.noteContent.NoteGalleryItem;
 import de.vluddymo.note_board.model.noteContent.NoteLink;
-import de.vluddymo.note_board.model.noteType.NoteType;
+import de.vluddymo.note_board.model.noteContent.NoteToDo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,4 +153,38 @@ class NoteContentControllerTest {
         assertEquals("https://github.com/vluddymo?tab=repositories", byId.get().getImgUrl());
 
     }
+
+    @Test
+    public void AddTodoShouldAddNewTodoToDatabase() {
+
+        //GIVEN
+        NoteToDo firstTodo = new NoteToDo("23", "345", "https://github.com/vluddymo", false);
+        NoteToDo secondTodo = new NoteToDo("123", "567", "https://github.com/vluddymo", true);
+        noteTodoDb.save(firstTodo);
+        noteTodoDb.save(secondTodo);
+
+        String noteId = "7890";
+
+        String url = "http://localhost:" + port + "/api/content/" + noteId + "/todo";
+        HttpHeaders headers = new HttpHeaders();
+        NoteTodoDto noteTodoDto = new NoteTodoDto("write test", true);
+        HttpEntity<NoteTodoDto> requestEntity = new HttpEntity<>(noteTodoDto, headers);
+
+        //WHEN
+        ResponseEntity<NoteToDo> putResponse = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, NoteToDo.class);
+
+        //THEN
+        long amountOfItems = noteTodoDb.count();
+
+        assertNotNull(putResponse.getBody());
+        assertEquals(amountOfItems, 3);
+        assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
+        assertEquals(putResponse.getBody().getNoteId(), "7890");
+
+        Optional<NoteToDo> byId = noteTodoDb.findById(putResponse.getBody().getTodoId());
+        assertTrue(byId.isPresent());
+        assertEquals("write test", byId.get().getTask());
+
+    }
+
 }

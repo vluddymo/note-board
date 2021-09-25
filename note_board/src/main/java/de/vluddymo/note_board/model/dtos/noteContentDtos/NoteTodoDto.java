@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NoteTodoDto {
+
     private String task;
     private Boolean isTaskDone;
+
 }
