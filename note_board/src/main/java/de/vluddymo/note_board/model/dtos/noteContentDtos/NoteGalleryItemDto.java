@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoteGalleryItemDto {
 
-    private String id;
     private String imgUrl;
 
 }
