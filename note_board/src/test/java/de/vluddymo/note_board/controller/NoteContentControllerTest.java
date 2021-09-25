@@ -7,7 +7,9 @@ import de.vluddymo.note_board.database.noteContent.NoteTodoMongoDB;
 import de.vluddymo.note_board.model.Note;
 import de.vluddymo.note_board.model.dtos.NoteDto;
 import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteAppointmentDto;
+import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteLinkDto;
 import de.vluddymo.note_board.model.noteContent.NoteAppointment;
+import de.vluddymo.note_board.model.noteContent.NoteLink;
 import de.vluddymo.note_board.model.noteType.NoteType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,16 +75,48 @@ class NoteContentControllerTest {
         ResponseEntity<NoteAppointment> putResponse = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, NoteAppointment.class);
 
         //THEN
-        long amountOfNotes = noteAppointmentDb.count();
+        long amountOfAppointments = noteAppointmentDb.count();
 
-        assertNotNull(putResponse.getBody());
-        assertEquals(amountOfNotes, 3);
+        assertEquals(amountOfAppointments, 3);
         assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
         assertEquals(putResponse.getBody().getAppointmentDescription(),"neuer termin" );
 
         Optional<NoteAppointment> byId = noteAppointmentDb.findById(putResponse.getBody().getAppointmentId());
         assertTrue(byId.isPresent());
         assertEquals("30. September 2021", byId.get().getAppointmentDate());
+
+    }
+
+    @Test
+    public void AddLinkShouldAddNewLinkToDatabase(){
+
+        //GIVEN
+        NoteLink firstLink = new NoteLink("23","345", "Bachelorarbeit", "https://github.com/vluddymo");
+        NoteLink secondLink = new NoteLink("123","567", "Masterarbeit", "https://github.com/vluddymo");
+        noteLinkDb.save(firstLink);
+        noteLinkDb.save(secondLink);
+
+        String noteId = "7890";
+
+        String url = "http://localhost:"+port+"/api/content/"+noteId+"/link";
+        HttpHeaders headers = new HttpHeaders();
+        NoteLinkDto noteLinkDto = new NoteLinkDto("Diplomarbeit", "https://github.com/vluddymo?tab=repositories");
+        HttpEntity<NoteLinkDto> requestEntity = new HttpEntity<>(noteLinkDto, headers);
+
+        //WHEN
+        ResponseEntity<NoteLink> putResponse = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, NoteLink.class);
+
+        //THEN
+        long amountOfLinks = noteLinkDb.count();
+
+        assertNotNull(putResponse.getBody());
+        assertEquals(amountOfLinks, 3);
+        assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
+        assertEquals(putResponse.getBody().getLinkDescription(),"Diplomarbeit" );
+
+        Optional<NoteLink> byId = noteLinkDb.findById(putResponse.getBody().getLinkId());
+        assertTrue(byId.isPresent());
+        assertEquals("https://github.com/vluddymo?tab=repositories", byId.get().getLinkUrl());
 
     }
 

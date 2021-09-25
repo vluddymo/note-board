@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoteLinkDto {
 
-    private String id;
     private String linkDescription;
     private String linkUrl;
 
