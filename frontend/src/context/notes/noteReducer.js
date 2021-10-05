@@ -11,6 +11,15 @@ import {
     FETCH_NOTES_SUCCESS
 } from "./noteActions";
 
+import {
+    ADD_LINK, ADD_LINK_FAILED,
+    ADD_LINK_SUCCESS,
+    FETCH_CONTENT,
+    FETCH_CONTENT_FAILED,
+    FETCH_CONTENT_SUCCESS
+}
+    from "./contentActions";
+
 export default function noteReducer(state, action) {
     switch (action.type) {
         case FETCH_NOTES:
@@ -40,18 +49,35 @@ export default function noteReducer(state, action) {
         case EDIT_NOTE:
             return { ...state, editStatus: 'PENDING'};
         case EDIT_NOTE_SUCCESS:
-            //const noteIndex = state.notes.findIndex(note => note.id === action.payload.id);
             return {
                 ...state,
                 editStatus: 'SUCCESS',
                 notes: [...state.notes.filter((note) => {
                 return note.id !== action.payload.id}), action.payload]
             }
-                //notes: [{[noteIndex]: {$set: action.payload}}, ...state.notes]}
-                //notes : [{[noteIndex]: {$set: action.payload}}, ...state.notes.filter(({ id }) => id !== action.payload.id).map((note) => action.payload ? action.payload : note)]};
-                //notes: [ ...state.notes.filter(({ id }) => id !== action.payload.id).map((note) => action.payload ? action.payload : note)]
         case EDIT_NOTE_FAILED:
             return { ...state, editStatus: 'FAILED'}
+        case FETCH_CONTENT:
+            return { ...state, fetchContentStatus: 'PENDING' };
+        case FETCH_CONTENT_SUCCESS:
+            return { ...state, fetchContentStatus: 'SUCCESS',
+                appointments: action.payload.appointments,
+                gallery: action.payload.gallery,
+                todos: action.payload.todos,
+                links: action.payload.links
+            };
+        case FETCH_CONTENT_FAILED:
+            return { ...state, fetchContentStatus: 'FAILED' };
+        case ADD_LINK:
+            return { ...state, addLinkStatus: 'PENDING'};
+        case ADD_LINK_SUCCESS:
+            return {
+                ...state,
+                addLinkStatus: 'SUCCESS',
+                links: [ ...state.links, action.payload]
+            }
+        case ADD_LINK_FAILED:
+            return { ...state, addLinkStatus: 'FAILED'}
         default:
             return state;
     }

@@ -7,6 +7,10 @@ export default function NoteContextProvider({children}) {
 
     const [state, dispatch] = useReducer(noteReducer, {
         notes: [],
+        appointments: [],
+        gallery: [],
+        todos: [],
+        links: [],
         fetchStatus: undefined,
     })
 
