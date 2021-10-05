@@ -125,8 +125,8 @@ class NoteContentControllerTest {
     public void AddGalleryItemShouldAddNewGalleryItemToDatabase() {
 
         //GIVEN
-        NoteGalleryItem firstItem = new NoteGalleryItem("23", "345", "https://github.com/vluddymo");
-        NoteGalleryItem secondItem = new NoteGalleryItem("123", "567", "https://github.com/vluddymo");
+        NoteGalleryItem firstItem = new NoteGalleryItem("23", "345", "https://github.com/vluddymo", "beschreibung");
+        NoteGalleryItem secondItem = new NoteGalleryItem("123", "567", "https://github.com/vluddymo", "noch eine beschreibung");
         noteGalleryItemDb.save(firstItem);
         noteGalleryItemDb.save(secondItem);
 
@@ -134,7 +134,7 @@ class NoteContentControllerTest {
 
         String url = "http://localhost:" + port + "/api/content/" + noteId + "/galleryItem";
         HttpHeaders headers = new HttpHeaders();
-        NoteGalleryItemDto noteGalleryItemDto = new NoteGalleryItemDto("https://github.com/vluddymo?tab=repositories");
+        NoteGalleryItemDto noteGalleryItemDto = new NoteGalleryItemDto("https://github.com/vluddymo?tab=repositories", "eine dritte beschreibung");
         HttpEntity<NoteGalleryItemDto> requestEntity = new HttpEntity<>(noteGalleryItemDto, headers);
 
         //WHEN
@@ -181,7 +181,7 @@ class NoteContentControllerTest {
         assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
         assertEquals(putResponse.getBody().getNoteId(), "7890");
 
-        Optional<NoteToDo> byId = noteTodoDb.findById(putResponse.getBody().getTodoId());
+        Optional<NoteToDo> byId = noteTodoDb.findById(putResponse.getBody().getId());
         assertTrue(byId.isPresent());
         assertEquals("write test", byId.get().getTask());
 
