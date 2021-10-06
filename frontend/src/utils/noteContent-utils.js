@@ -43,6 +43,20 @@ export async function addALink(noteId,linkData) {
     return await response.json();
 }
 
+export async function addAnImage(noteID,imgData) {
+    const response = await fetch("api/content/"+noteID+"/galleryItem", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({imgDescription: imgData.imgDescription, imgUrl: imgData.imgUrl}),
+    });
+    if (response.status !== 200) {
+        throw new Error('invalid response');
+    }
+    return await response.json();
+}
+
 
 /*
 export async function addAnAppointment(noteID,data) {
@@ -60,19 +74,7 @@ export async function addAnAppointment(noteID,data) {
 }
 
 
-export async function addAnGalleryItem(noteID,data) {
-    const response = await fetch("api/content/"+noteID+"/galleryItem", {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({title: noteData.title, content: noteData.content}),
-    });
-    if (response.status !== 200) {
-        throw new Error('invalid response');
-    }
-    return await response.json();
-}
+
 
 
 export async function addATodo(noteID,data) {

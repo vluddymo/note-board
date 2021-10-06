@@ -12,6 +12,7 @@ import {
 } from "./noteActions";
 
 import {
+    ADD_IMAGE, ADD_IMAGE_FAILED, ADD_IMAGE_SUCCESS,
     ADD_LINK, ADD_LINK_FAILED,
     ADD_LINK_SUCCESS,
     FETCH_CONTENT,
@@ -78,6 +79,16 @@ export default function noteReducer(state, action) {
             }
         case ADD_LINK_FAILED:
             return { ...state, addLinkStatus: 'FAILED'}
+        case ADD_IMAGE:
+            return { ...state, addImgStatus: 'PENDING'};
+        case ADD_IMAGE_SUCCESS:
+            return {
+                ...state,
+                addImgStatus: 'SUCCESS',
+                gallery: [ ...state.gallery, action.payload]
+            }
+        case ADD_IMAGE_FAILED:
+            return { ...state, addImgStatus: 'FAILED'}
         default:
             return state;
     }
