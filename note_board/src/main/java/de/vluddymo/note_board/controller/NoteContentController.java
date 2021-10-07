@@ -1,5 +1,6 @@
 package de.vluddymo.note_board.controller;
 
+import de.vluddymo.note_board.model.NotesContent;
 import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteAppointmentDto;
 import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteGalleryItemDto;
 import de.vluddymo.note_board.model.dtos.noteContentDtos.NoteLinkDto;
@@ -12,6 +13,8 @@ import de.vluddymo.note_board.service.NoteContentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("api/content")
 public class NoteContentController {
@@ -21,6 +24,20 @@ public class NoteContentController {
     @Autowired
     public NoteContentController(NoteContentService noteContentService){
         this.noteContentService = noteContentService;
+    }
+
+    @GetMapping
+    public NotesContent getAllContents(){
+        return noteContentService.getAllNoteContents();
+    }
+
+    @GetMapping("{noteId}")
+    public NotesContent getContentById(@PathVariable String noteId){
+        return noteContentService.getNoteContentById(noteId);
+    }
+    @GetMapping("{noteId}/todos")
+    public Iterable<NoteToDo> getTodosById(@PathVariable String noteId){
+        return noteContentService.getNoteTodosById(noteId);
     }
 
     @PutMapping("{id}/appointment")
