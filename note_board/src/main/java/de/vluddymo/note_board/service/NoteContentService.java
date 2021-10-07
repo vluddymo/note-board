@@ -14,6 +14,7 @@ import de.vluddymo.note_board.model.noteContent.NoteAppointment;
 import de.vluddymo.note_board.model.noteContent.NoteGalleryItem;
 import de.vluddymo.note_board.model.noteContent.NoteLink;
 import de.vluddymo.note_board.model.noteContent.NoteToDo;
+import de.vluddymo.note_board.utils.DateAndTimeUtils;
 import de.vluddymo.note_board.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.aggregation.BooleanOperators;
@@ -31,14 +32,16 @@ public class NoteContentService {
     private final NoteLinkMongoDB noteLinkDb;
     private final NoteTodoMongoDB noteTodoDb;
     private final IdUtils idUtils;
+    private final DateAndTimeUtils dateAndTimeUtils;
 
     @Autowired
-    public NoteContentService(NoteAppointmentMongoDB noteAppointmentDb, NoteGalleryItemMongoDB noteGalleryItemDb, NoteLinkMongoDB noteLinkDb, NoteTodoMongoDB noteTodoDb, IdUtils idUtils) {
+    public NoteContentService(NoteAppointmentMongoDB noteAppointmentDb, NoteGalleryItemMongoDB noteGalleryItemDb, NoteLinkMongoDB noteLinkDb, NoteTodoMongoDB noteTodoDb, IdUtils idUtils, DateAndTimeUtils dateAndTimeUtils) {
         this.noteAppointmentDb = noteAppointmentDb;
         this.noteGalleryItemDb = noteGalleryItemDb;
         this.noteLinkDb = noteLinkDb;
         this.noteTodoDb = noteTodoDb;
         this.idUtils = idUtils;
+        this.dateAndTimeUtils = dateAndTimeUtils;
     }
 
     public NotesContent getAllNoteContents() {
@@ -112,8 +115,8 @@ public class NoteContentService {
         NoteAppointment newAppointment = new NoteAppointment();
         newAppointment.setNoteId(id);
         newAppointment.setAppointmentId(idUtils.generateRandomId());
-        newAppointment.setAppointmentDate(appointmentDto.getAppointmentDate());
-        newAppointment.setAppointmentTime(appointmentDto.getAppointmentTime());
+        newAppointment.setAppointmentDate(dateAndTimeUtils.formatAppointmentDate(appointmentDto.getAppointmentDate()));
+        newAppointment.setAppointmentTime(appointmentDto.getAppointmentTime()+" Uhr");
         newAppointment.setAppointmentDescription(appointmentDto.getAppointmentDescription());
         newAppointment.setOnAlert(appointmentDto.getOnAlert());
         return noteAppointmentDb.save(newAppointment);

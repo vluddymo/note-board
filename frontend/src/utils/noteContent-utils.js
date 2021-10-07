@@ -57,15 +57,18 @@ export async function addAnImage(noteID,imgData) {
     return await response.json();
 }
 
-
-/*
-export async function addAnAppointment(noteID,data) {
+export async function addAnAppointment(noteID,appointmentData) {
     const response = await fetch("api/content/"+noteID+"/appointment", {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({title: noteData.title, content: noteData.content}),
+        body: JSON.stringify({
+            appointmentDescription: appointmentData.appointmentDescription,
+            appointmentDate: appointmentData.appointmentDate,
+            appointmentTime: appointmentData.appointmentTime,
+            onAlert: appointmentData.onAlert
+        }),
     });
     if (response.status !== 200) {
         throw new Error('invalid response');
@@ -74,8 +77,7 @@ export async function addAnAppointment(noteID,data) {
 }
 
 
-
-
+/*
 
 export async function addATodo(noteID,data) {
     const response = await fetch("api/content/"+noteID+"/todo", {
@@ -91,18 +93,5 @@ export async function addATodo(noteID,data) {
     return await response.json();
 }
 
-export async function addALink(noteID,data) {
-    const response = await fetch("api/content/"+noteID+"/link", {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({title: noteData.title, content: noteData.content}),
-    });
-    if (response.status !== 200) {
-        throw new Error('invalid response');
-    }
-    return await response.json();
-}
 
  */

@@ -40,7 +40,7 @@ export default function Appointments() {
     const {appointments} = useContext(NoteStateContext);
     const classes = useStyles();
 
-    return appointments.map((appointment) => (
+    return appointments.sort((a, b) => a.date < b.date).map((appointment) => (
                 <div className={classes.entry} key={appointment.appointmentId}>
                     <div className={classes.dateTimeBox}>
                         <Typography className={classes.date} variant="body2">{appointment.appointmentDate}</Typography>
