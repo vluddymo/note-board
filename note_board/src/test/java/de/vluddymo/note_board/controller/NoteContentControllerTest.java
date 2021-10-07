@@ -69,7 +69,7 @@ class NoteContentControllerTest {
 
         String url = "http://localhost:" + port + "/api/content/" + noteId + "/appointment";
         HttpHeaders headers = new HttpHeaders();
-        NoteAppointmentDto noteAppointmentDto = new NoteAppointmentDto("neuer termin", "30. September 2021", "16:00 Uhr", true);
+        NoteAppointmentDto noteAppointmentDto = new NoteAppointmentDto("neuer termin", "2021-11-18", "16:00", true);
         HttpEntity<NoteAppointmentDto> requestEntity = new HttpEntity<>(noteAppointmentDto, headers);
 
         //WHEN
@@ -78,13 +78,13 @@ class NoteContentControllerTest {
         //THEN
         long amountOfAppointments = noteAppointmentDb.count();
 
-        assertEquals(amountOfAppointments, 3);
+        assertEquals(3, amountOfAppointments);
         assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
         assertEquals(putResponse.getBody().getAppointmentDescription(), "neuer termin");
 
         Optional<NoteAppointment> byId = noteAppointmentDb.findById(putResponse.getBody().getAppointmentId());
         assertTrue(byId.isPresent());
-        assertEquals("30. September 2021", byId.get().getAppointmentDate());
+        assertEquals("18 Nov 2021", byId.get().getAppointmentDate());
 
     }
 
