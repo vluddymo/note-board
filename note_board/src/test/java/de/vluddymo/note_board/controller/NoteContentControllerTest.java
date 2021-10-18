@@ -181,7 +181,7 @@ class NoteContentControllerTest {
         assertEquals(putResponse.getStatusCode(), HttpStatus.OK);
         assertEquals(putResponse.getBody().getNoteId(), "7890");
 
-        Optional<NoteToDo> byId = noteTodoDb.findById(putResponse.getBody().getId());
+        Optional<NoteToDo> byId = noteTodoDb.findById(putResponse.getBody().getTodoId());
         assertTrue(byId.isPresent());
         assertEquals("write test", byId.get().getTask());
 

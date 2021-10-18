@@ -23,7 +23,10 @@ import {
     ADD_LINK_SUCCESS,
     FETCH_CONTENT,
     FETCH_CONTENT_FAILED,
-    FETCH_CONTENT_SUCCESS
+    FETCH_CONTENT_SUCCESS,
+    UPDATE_TODO_STATUS,
+    UPDATE_TODO_STATUS_SUCCESS,
+    UPDATE_TODO_STATUS_FAILED, FETCH_TODOS, FETCH_TODOS_SUCCESS, FETCH_TODOS_FAILED,
 }
     from "./contentActions";
 
@@ -32,7 +35,6 @@ export default function noteReducer(state, action) {
         case FETCH_NOTES:
             return { ...state, fetchStatus: 'PENDING' };
         case FETCH_NOTES_SUCCESS:
-            console.log("fetch reducer active on success")
             return { ...state, fetchStatus: 'SUCCESS', notes: action.payload };
         case FETCH_NOTES_FAILED:
             return { ...state, fetchStatus: 'FAILED' };
@@ -105,6 +107,27 @@ export default function noteReducer(state, action) {
             }
         case ADD_APPOINTMENT_FAILED:
             return { ...state, addAppointmentStatus: 'FAILED'}
+        case FETCH_TODOS:
+            return { ...state, fetchTodoStatus: 'PENDING'};
+        case FETCH_TODOS_SUCCESS:
+            return {
+                ...state,
+                fetchTodoStatus: 'SUCCESS',
+                todos: action.payload
+            }
+        case FETCH_TODOS_FAILED:
+            return { ...state, fetchTodoStatus: 'FAILED'}
+        case UPDATE_TODO_STATUS:
+            return { ...state, updateTodoStatus: 'PENDING'};
+        case UPDATE_TODO_STATUS_SUCCESS:
+            return {
+                ...state,
+                updateTodoStatus: 'SUCCESS',
+                todos: [ state.todos.filter((todo) => {
+                    return todo.todoId !== action.payload.todoId}), action.payload]
+            }
+        case UPDATE_TODO_STATUS_FAILED:
+            return { ...state, updateTodoStatus: 'FAILED'}
         default:
             return state;
     }

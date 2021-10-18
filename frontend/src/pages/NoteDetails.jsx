@@ -6,7 +6,7 @@ import NoteDetailsCard from "../components/NoteDetailsCard/NoteDetailsCard";
 import {fetchContents} from "../context/notes/contentActions";
 import {NoteDispatchContext} from "../context/notes/noteContext";
 
-export default function NoteDetails(){
+export default function NoteDetails() {
 
     const {id} = useParams();
     const [note, setNote] = useState();
@@ -23,7 +23,9 @@ export default function NoteDetails(){
     return (
 
         <PageFrame>
-            {note && <NoteDetailsCard note={note}/>}
+            <>
+                {note && <NoteDetailsCard note={note}/>}
+            </>
         </PageFrame>
     )
 }

@@ -55,6 +55,11 @@ public class NoteContentController {
         return noteContentService.insertTodo(id, noteTodoDto);
     }
 
+    @PostMapping("todo/{todoId}")
+    public NoteToDo UpdateTodoStatus(@PathVariable String todoId, @RequestBody NoteTodoDto noteTodoDto){
+        return noteContentService.updateTodoStatus(todoId, noteTodoDto);
+    }
+
     @PutMapping("{id}/galleryItem")
     public NoteGalleryItem AddGalleryItem(@PathVariable String id, @RequestBody NoteGalleryItemDto noteGalleryItemDto){
         return noteContentService.insertGalleryItem(id, noteGalleryItemDto);

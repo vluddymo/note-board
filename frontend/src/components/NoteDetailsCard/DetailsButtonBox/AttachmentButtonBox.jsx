@@ -53,9 +53,11 @@ export default function AttachmentButtonBox({noteId}) {
     const classes = useStyles();
     const [showAttachment, setShowAttachment] = useState("")
 
-    const noAppointmentString = "Du hast noch keine Termine für diese Notiz";
+/*  const noAppointmentString = "Du hast noch keine Termine für diese Notiz";
     const noGalleryString = "Du hast noch keine Gallerie für diese Notiz";
     const noLinkString = "Du hast noch keine Links für diese Notiz";
+
+ */
 
     return (
         <Container>
