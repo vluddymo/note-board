@@ -15,8 +15,8 @@ export default function DeleteButton({id}){
     }
 
     return (
-        <IconButton aria-label="delete">
-            <DeleteIcon onClick={handleClick} color="secondary"/>
+        <IconButton aria-label="delete" onClick={handleClick}>
+            <DeleteIcon color="secondary"/>
         </IconButton>
     )
 }

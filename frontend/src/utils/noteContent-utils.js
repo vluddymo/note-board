@@ -19,8 +19,8 @@ export async function fetchContentById(id) {
     return await response.json();
 }
 
-export async function fetchTodosById(id) {
-    const response = await fetch("api/content/"+id+"/todos", {
+export async function fetchTodosByNoteId(noteId) {
+    const response = await fetch("api/content/"+noteId+"/todos", {
         method: 'GET',
     });
     if (response.status !== 200) {
@@ -76,16 +76,13 @@ export async function addAnAppointment(noteID,appointmentData) {
     return await response.json();
 }
 
-
-/*
-
-export async function addATodo(noteID,data) {
-    const response = await fetch("api/content/"+noteID+"/todo", {
-        method: 'PUT',
+export async function updateATodoStatus(todoData) {
+    const response = await fetch("api/content/todo/"+todoData.todoId, {
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({title: noteData.title, content: noteData.content}),
+        body: JSON.stringify({isTaskDone: todoData.isTaskDone}),
     });
     if (response.status !== 200) {
         throw new Error('invalid response');
@@ -94,4 +91,3 @@ export async function addATodo(noteID,data) {
 }
 
 
- */

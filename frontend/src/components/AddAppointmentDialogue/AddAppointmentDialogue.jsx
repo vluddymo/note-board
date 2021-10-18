@@ -39,7 +39,7 @@ export default function AddAppointmentDialogue(props) {
             setAppointmentDescription("");
             props.handleClose();
         }
-    }, [addAppointmentStatus])
+    }, [addAppointmentStatus, props])
 
     function buildDataPackage() {
         const appointmentData = {

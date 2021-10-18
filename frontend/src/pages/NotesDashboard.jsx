@@ -9,7 +9,7 @@ import {Container, Grid} from "@material-ui/core";
 import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles((theme)=>({
-    container: {
+    noteContainer: {
         flexGrow: 2,
         width: "100%",
         display: "flex",
@@ -35,7 +35,7 @@ export default function NotesDashboard() {
     return (
         <PageFrame>
             <DashboardHeader/>
-            <Container className={classes.container}>
+            <Container className={classes.noteContainer}>
                 <Grid container spacing={2}>
                     {notes.map((note) =>
                         <Grid item xs={12} sm={6} md={4} lg={3}>

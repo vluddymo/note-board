@@ -18,7 +18,7 @@ export default function AddGalleryItemDialogue(props) {
             setImgDescription("");
             props.handleClose();
         }
-    }, [addImgStatus])
+    }, [addImgStatus, props])
 
     function buildDataPackage(){
         const imgData = {
@@ -50,6 +50,10 @@ export default function AddGalleryItemDialogue(props) {
         >
             <DialogTitle id="form-dialog-title">"Neues Bild"</DialogTitle>
             <DialogContent>
+                <div>
+                    <label>upload your file</label>
+                    <input type="file"></input>
+                </div>
                 <form>
                     <TextField
                         fullWidth={true}

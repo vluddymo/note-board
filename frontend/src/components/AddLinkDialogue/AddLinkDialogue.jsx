@@ -17,7 +17,7 @@ export default function AddLinkDialogue(props) {
             setLinkDescription("");
             props.handleClose();
         }
-    }, [addLinkStatus])
+    }, [addLinkStatus, props])
 
     function buildDataPackage(){
         const linkData = {

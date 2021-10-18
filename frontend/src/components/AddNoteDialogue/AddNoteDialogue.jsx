@@ -21,7 +21,7 @@ export default function AddNoteDialogue(props){
             props.handleClose();
         }
         // eslint-disable-next-line
-    },[addStatus])
+    },[addStatus, props])
 
     function buildDataPackage(){
         const noteData = {

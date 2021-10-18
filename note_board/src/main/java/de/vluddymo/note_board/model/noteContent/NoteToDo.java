@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class NoteToDo {
 
     @Id
-    public String id;
+    public String todoId;
     public String noteId;
     public String task;
     public Boolean isTaskDone;

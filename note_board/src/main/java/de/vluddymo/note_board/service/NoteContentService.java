@@ -17,12 +17,12 @@ import de.vluddymo.note_board.model.noteContent.NoteToDo;
 import de.vluddymo.note_board.utils.DateAndTimeUtils;
 import de.vluddymo.note_board.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.BooleanOperators;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
-import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.startsWith;
 
 @Service
 public class NoteContentService {
@@ -116,7 +116,7 @@ public class NoteContentService {
         newAppointment.setNoteId(id);
         newAppointment.setAppointmentId(idUtils.generateRandomId());
         newAppointment.setAppointmentDate(dateAndTimeUtils.formatAppointmentDate(appointmentDto.getAppointmentDate()));
-        newAppointment.setAppointmentTime(appointmentDto.getAppointmentTime()+" Uhr");
+        newAppointment.setAppointmentTime(appointmentDto.getAppointmentTime() + " Uhr");
         newAppointment.setAppointmentDescription(appointmentDto.getAppointmentDescription());
         newAppointment.setOnAlert(appointmentDto.getOnAlert());
         return noteAppointmentDb.save(newAppointment);
@@ -134,7 +134,7 @@ public class NoteContentService {
     public NoteToDo insertTodo(String noteId, NoteTodoDto todoDto) {
         NoteToDo newTodo = new NoteToDo();
         newTodo.setNoteId(noteId);
-        newTodo.setId(idUtils.generateRandomId());
+        newTodo.setTodoId(idUtils.generateRandomId());
         newTodo.setTask(todoDto.getTask());
         newTodo.setIsTaskDone(todoDto.getIsTaskDone());
         return noteTodoDb.save(newTodo);
@@ -147,5 +147,20 @@ public class NoteContentService {
         newGalleryItem.setImgUrl(galleryItemDto.getImgUrl());
         newGalleryItem.setImgDescription(galleryItemDto.getImgDescription());
         return noteGalleryItemDb.save(newGalleryItem);
+    }
+
+    public NoteToDo getTodoById(String id) {
+        Optional<NoteToDo> optionalTodo = noteTodoDb.findById(id);
+        if (optionalTodo.isPresent()) {
+            return optionalTodo.get();
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found");
+        }
+    }
+
+    public NoteToDo updateTodoStatus(String todoId, NoteTodoDto todoDto) {
+        NoteToDo todo = getTodoById(todoId);
+        todo.setIsTaskDone(todoDto.getIsTaskDone());
+        return noteTodoDb.save(todo);
     }
 }

@@ -82,7 +82,7 @@ export default function NoteDetailsCard({note}){
             <Typography variant="body2" className={classes.description}>{note.content}</Typography>
         </Box>
         <Box hidden={showContent !== "todo"} className={classes.content}>
-        <Todos/>
+        <Todos noteId={note.id}/>
         </Box>
         <AttachmentButtonBox noteId={note.id}/>
     </Card>
